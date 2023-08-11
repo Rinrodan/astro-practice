@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+module.exports = {
+    theme:
+}
+
+@layer base {
+    img ~ a {
+        display: flex;
+        text-align: center;
+        margin: auto;
+        margin-top: 0px;
+        width: max-content;
+        font-size: small;
+    }
+    a > img {
+        max-height: 500px;
+        margin: auto;
+    }
+    p > img {
+        max-height: 500px;
+        margin: auto;
+        margin-bottom: 0px;
+    }
+}

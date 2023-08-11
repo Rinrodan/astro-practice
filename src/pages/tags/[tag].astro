@@ -1,0 +1,72 @@
+---
+import { getCollection } from "astro:content";
+import { Picture } from "@astrojs/image/components";
+import Layout from "@layouts/Layout.astro";
+import FilteredBlogsTags from "@components/filteredBlogsTags.astro";
+import Container from "@components/container.astro";
+
+export async function getStaticPaths() {
+  const allPosts = await Astro.glob('../../content/blog/*.md');
+
+  const uniqueTags = [...new Set(allPosts.map((post) => post.frontmatter.tags).flat())];
+
+  return uniqueTags.map((tag) => {
+    const filteredPosts = allPosts.filter((post) => post.frontmatter.tags.includes(tag));
+    return { params: { tag }, props: { posts: filteredPosts }
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+<Layout title="">
+  <Container>
+    <main class="mt-16">
+        <p class="text-5xl font-semibold w-max m-auto mb-16"> "{tag}"</p>
+        <ul class="grid gap-16 max-w-4xl mx-auto">
+          {posts.map((post, index) => 
+            <a href={`/blog/${post.frontmatter.link}`}>
+              <div class="grid md:grid-cols-2 gap-5 md:gap-10 items-center">
+                <Picture
+                    src={post.frontmatter.image.src}
+                    alt={post.frontmatter.image.alt}
+                    sizes="(max-width: 800px) 100vw, 800px"
+                    widths={[200, 400, 800]}
+                    aspectRatio="16:9"
+                    background="#ffffff"
+                    fit="cover"
+                    position="center"
+                    loading={index <= 2 ? "eager" : "lazy"}
+                    decoding={index <= 2 ? "sync" : "async"}
+                    class="w-full rounded-md"
+                  />
+                  <div>
+                    <span class="text-blue-400 uppercase tracking-wider text-sm font-medium">
+                      {post.frontmatter.category}
+                    </span>
+
+                    <h2 class="text-3xl font-semibold leading-snug tracking-tight mt-1 ">
+                      {post.frontmatter.title}
+                    </h2>
+
+                    <div class="flex gap-2 mt-3">
+                      <span class="text-gray-400">
+                        {post.frontmatter.author}
+                      </span>
+                      <span class="text-gray-400">• </span>
+                      <time
+                        class="text-gray-400"
+                        >
+                        {post.frontmatter.publishDate}
+                      </time>
+                    </div>
+                  </div>
+              </div>
+            </a>
+          )}
+          
+        </ul>
+    </main>
+  </Container>
+</Layout>

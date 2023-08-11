@@ -1,0 +1,66 @@
+---
+import Layout from "@layouts/Layout.astro";
+const allPosts = await Astro.glob('../content/blog/*.{md, mdx}');
+const posts = await Astro.glob('../content/blog/*.{md, mdx}');
+const tags = [...new Set(allPosts.map((post) => post.frontmatter.tags).flat())];
+const pageTitle: string = "Tag Index";
+---
+
+<Layout title={pageTitle}>
+    <p class="m-auto w-max pb-6 text-5xl font-bold" tabIndex="0" title="my websites tags and the articles that use them">{pageTitle}</p>
+    <div class="tags pb-10 w-2/6">
+        {tags.map((tag) => (
+            <p class="tag " ><a href={`/tags/${tag}`} title={`All my posts about ${tag}`}>{tag}</a></p>
+        ))}    
+    </div>
+    <div class="flex flex-col justify-center flex-wrap  w-max m-auto">
+        {tags.map((tag) => {
+            const filteredPosts = posts.filter((post) => post.frontmatter.tags.includes(tag) && !post.frontmatter.draft);
+                return (
+                <ul class="flex flex-col ml-0 w-full h-auto max-h-20 m-auto  mb-6 border-t-black border-t-2" >
+                    <li class="text-xl font-bold mt-1"  tabIndex="0" title={`Blog posts about ${tag}`}>{tag}</li>
+                    {filteredPosts.map((post => (
+                    <li class="pl-2"><a href={`blog/${post.frontmatter.link}`} title={`${post.frontmatter.title}: ${post.frontmatter.snippet}`} aria-label={`post about ${post.frontmatter.title}`}>{post.frontmatter.title}</a></li>
+                    )))}
+                </ul> 
+                );
+        })}
+            
+    
+    </div>
+    <div class="text-center m-20">
+        <a
+            href="/tags"
+            class="tag w-max bg-gray-100 px-5 py-5 rounded-md hover:bg-gray-200 transition"
+            title="Back to the top of the page"
+            >Back to top</a
+        >
+    </div>
+</Layout>
+
+<style>
+a {
+    color: #00539F;
+}
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+.tag {
+    margin: 0.25em;
+    
+    border-radius: 0.5em;
+    padding: 0.5em 1em;
+    font-size: 1.15em;
+    background-color: #F3F4F6;;
+     hover:bg-gray-200 transition
+}
+.tag:hover {
+    background-color: #E5E7EB;;
+transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+transition-duration: 300ms;
+box-shadow: 3px 3px 6px black;
+
+}
+</style>

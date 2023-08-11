@@ -1,0 +1,24 @@
+---
+import Container from "@components/container.astro";
+import Cta from "@components/cta.astro";
+import Features from "@components/features.astro";
+import Hero from "@components/hero.astro";
+import Logos from "@components/logos.astro";
+import Layout from "@layouts/Layout.astro";
+import TopThreeBlogPosts from "@components/topThreeBlogPosts.astro";
+
+---
+
+<Layout title="">
+  <Container>
+    <Hero />
+    <TopThreeBlogPosts />
+    <div class="text-center m-20">
+      <a
+        href="/blog"
+        class="bg-gray-100 px-5 py-5 rounded-md hover:bg-gray-200 transition"
+        >More Posts</a
+      >
+    </div>
+  </Container>
+</Layout>

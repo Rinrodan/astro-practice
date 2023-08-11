@@ -24,7 +24,7 @@ const firstThreeEntries = publishedBlogEntries.slice(0, 1);
             <ul class="grid gap-16 max-w-4xl mx-auto">
             {firstThreeEntries.map((blogPostEntry, index) => (
                 <li>
-                <a href={`/blog/${blogPostEntry.slug}`}>
+                <a href={`/astro-practice/blog/${blogPostEntry.slug}`}>
                     <div class="grid md:grid-cols-2 gap-5 md:gap-10 items-center">
                     <Picture
                         src={blogPostEntry.data.image.src}

@@ -30,7 +30,7 @@ const { posts } = Astro.props;
                 
             {posts.map((post, index) => (
                 <li>
-                <a href={`/blog/${post.frontmatter.link}`}>
+                <a href={`/astro-practice/blog/${post.frontmatter.link}`}>
                     <div class="grid md:grid-cols-2 gap-5 md:gap-10 items-center">
                     <Picture
                         src={post.frontmatter.image.src}

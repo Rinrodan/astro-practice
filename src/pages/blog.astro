@@ -24,7 +24,7 @@ publishedBlogEntries.sort(function (a, b) {
       <ul class="grid gap-16 max-w-4xl mx-auto">
         {publishedBlogEntries.map((blogPostEntry, index) => (
             <li >
-              <a href={`/blog/${blogPostEntry.slug}`} title={`${blogPostEntry.data.title}: ${blogPostEntry.data.snippet}`}>
+              <a href={`/astro-practice/blog/${blogPostEntry.slug}`} title={`${blogPostEntry.data.title}: ${blogPostEntry.data.snippet}`}>
                 <div class="grid md:grid-cols-2 gap-5 md:gap-10 items-center">
                   <Picture
                     src={blogPostEntry.data.image.src}
